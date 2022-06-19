@@ -13,9 +13,8 @@ keywords = ["x11", "mouse", "cursor", "binarysearch"]
 categories = ["command-line-utilities", "accessibility"]
 
 [dependencies]
-libxdo-sys = "*"
-x11 = "*"
-clap = { version = "*", features = ["derive"]}
-anyhow = "*"
-serde = { version = "*", features = ["derive"] }
-bincode = "*"
+libxdo-sys = "0.11.0"
+clap = { version = "3.1.18", features = ["derive"]}
+anyhow = "1.0.57"
+serde = { version = "1.0.137", features = ["derive"] }
+bincode = "1.3.3"
