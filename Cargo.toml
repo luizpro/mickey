@@ -1,6 +1,6 @@
 [package]
 name = "mickey"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "Apache-2.0"
 description = "Accessibility utility to move mouse cursor using keyboard with binary search algorithm"
@@ -8,7 +8,7 @@ homepage = "https://github.com/luizpro/mickey"
 repository = "https://github.com/luizpro/mickey"
 readme = "README.md"
 
-keywords = ["x11", "mouse", "cursor", "binarysearch"]
+keywords = ["x11", "mouse", "cursor", "binarysearch", "leftwm"]
 
 categories = ["command-line-utilities", "accessibility"]
 
