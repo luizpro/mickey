@@ -1,0 +1,15 @@
+[package]
+name = "mickey"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Accessibility utility to move mouse cursor using keyboard with binary search algorithm"
+homepage = ""
+
+[dependencies]
+libxdo-sys = "*"
+x11 = "*"
+clap = { version = "*", features = ["derive"]}
+anyhow = "*"
+serde = { version = "*", features = ["derive"] }
+bincode = "*"
