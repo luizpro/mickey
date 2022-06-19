@@ -4,7 +4,13 @@ version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
 description = "Accessibility utility to move mouse cursor using keyboard with binary search algorithm"
-homepage = ""
+homepage = "https://github.com/luizpro/mickey"
+repository = "https://github.com/luizpro/mickey"
+readme = "README.md"
+
+keywords = ["x11", "mouse", "cursor", "binary search"]
+
+categories = ["command-line-utilities", "accessibility"]
 
 [dependencies]
 libxdo-sys = "*"
