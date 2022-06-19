@@ -8,7 +8,7 @@ homepage = "https://github.com/luizpro/mickey"
 repository = "https://github.com/luizpro/mickey"
 readme = "README.md"
 
-keywords = ["x11", "mouse", "cursor", "binary search"]
+keywords = ["x11", "mouse", "cursor", "binarysearch"]
 
 categories = ["command-line-utilities", "accessibility"]
 
