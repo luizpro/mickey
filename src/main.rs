@@ -18,6 +18,7 @@ pub enum Command {
     Click(Click),
     Centralize,
     Move(Move),
+    Screenshot,
     Hold,
 }
 
@@ -125,6 +126,7 @@ impl Motion {
 struct State {
     raise: (usize, usize),
     hold: bool,
+    mark: (i32, i32),
 }
 
 impl Default for State {
@@ -132,6 +134,7 @@ impl Default for State {
         State {
             hold: false,
             raise: (1, 1),
+            mark: (0, 0),
         }
     }
 }
@@ -144,7 +147,8 @@ impl State {
     }
 
     fn reset() -> Result<()> {
-        let mut s = State::load()?;
+        let mut s = State::load().unwrap_or_default();
+
         s.raise = (1, 1);
         s.save()?;
 
@@ -162,6 +166,40 @@ fn main() -> Result<()> {
     let mut xdo = XDO::new().map_err(|_| anyhow!("Unable to use libxdo"))?;
 
     match app.command {
+        Command::Screenshot => {
+            let screen = x11_screenshot::Screen::open().ok_or(anyhow!("Unable to open screen"))?;
+
+            let mut state = State::load().unwrap_or_default();
+
+            let a = state.mark;
+
+            let b = xdo.postition();
+
+            let c = screen
+                .capture_area(
+                    (a.0 - b.0).abs() as u32,
+                    (a.1 - b.1).abs() as u32,
+                    std::cmp::min(a.0, b.0),
+                    std::cmp::min(a.1, b.1),
+                )
+                .ok_or(anyhow!("Unable to capture screen"))?;
+
+            c.save("/tmp/shoot.png")?;
+
+            std::process::Command::new("xclip")
+                .arg("-selection")
+                .arg("clipboard")
+                .arg("-t")
+                .arg("image/png")
+                .arg("-i")
+                .arg("/tmp/shoot.png")
+                .spawn()?
+                .wait_with_output()?;
+
+            state.mark = b;
+            state.save()?;
+        }
+
         Command::Centralize => {
             xdo.centralize();
             State::reset()?

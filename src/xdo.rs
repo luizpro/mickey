@@ -2,8 +2,9 @@ use std::ptr::{null, null_mut};
 
 use libxdo_sys::{
     xdo_clear_active_modifiers, xdo_click_window, xdo_free, xdo_get_active_modifiers,
-    xdo_get_viewport_dimensions, xdo_mouse_down, xdo_mouse_up, xdo_move_mouse,
-    xdo_move_mouse_relative, xdo_new, xdo_set_active_modifiers, Struct_xdo, CURRENTWINDOW,
+    xdo_get_mouse_location, xdo_get_viewport_dimensions, xdo_mouse_down, xdo_mouse_up,
+    xdo_move_mouse, xdo_move_mouse_relative, xdo_new, xdo_set_active_modifiers, Struct_xdo,
+    CURRENTWINDOW,
 };
 
 pub struct XDO {
@@ -42,6 +43,18 @@ impl XDO {
         unsafe {
             xdo_set_active_modifiers(self.raw, CURRENTWINDOW, mods, modct);
         }
+    }
+
+    pub fn postition(&mut self) -> (i32, i32) {
+        let mut x = 0i32;
+        let mut y = 0i32;
+        let mut s = 0i32;
+
+        unsafe {
+            xdo_get_mouse_location(self.raw, &mut x, &mut y, &mut s);
+        }
+
+        (x, y)
     }
 
     pub fn viewport(&mut self) -> (u32, u32) {
