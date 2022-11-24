@@ -184,7 +184,7 @@ fn main() -> Result<()> {
                 )
                 .ok_or(anyhow!("Unable to capture screen"))?;
 
-            c.save("/tmp/shoot.png")?;
+            c.save("/dev/shm/shoot.png")?;
 
             std::process::Command::new("xclip")
                 .arg("-selection")
@@ -192,7 +192,7 @@ fn main() -> Result<()> {
                 .arg("-t")
                 .arg("image/png")
                 .arg("-i")
-                .arg("/tmp/shoot.png")
+                .arg("/dev/shm/shoot.png")
                 .spawn()?
                 .wait_with_output()?;
 
